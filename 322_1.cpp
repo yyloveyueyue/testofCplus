@@ -1,4 +1,4 @@
-#include <iostream>
+#include<iostream>
 using namespace std;
 
 namespace A{
@@ -15,3 +15,4 @@ int main(){
     test();
     return EXIT_SUCCESS;
 }
+
