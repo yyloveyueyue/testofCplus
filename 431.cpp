@@ -8,7 +8,7 @@ class Person
 public:
     Person()
     {
-        cout << "构造函数调用！" << endl;
+        cout << "begin" << endl;
         pName = (char *)malloc(sizeof("John"));
         strcpy(pName, "John");
         mTall = 150;
@@ -16,12 +16,12 @@ public:
     }
     ~Person()
     {
-        cout << "析构函数调用" << endl;
-        if (pName != NULL)
-        {
-            free(pName);
-            pName = NULL;
-        }
+        cout << "end" << endl;
+        // if (pName != NULL)
+        // {
+        //     free(pName);
+        //     pName = NULL;
+        // }
     }
 
 public:
