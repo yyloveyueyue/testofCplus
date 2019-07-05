@@ -11,6 +11,8 @@ using namespace std;
 //创建电视机类
 class Television
 {
+    friend class Remote;
+
 public:
     enum{On,Off};       //电视状态
     enum
@@ -85,6 +87,56 @@ private:
     int mChannel;       //电视机频道
 };
 
+//电视机调台只能一个一个，遥控器可以指定频道
+//电视遥控器
+class Remote{
+
+public:
+    //拷贝构造函数
+    Remote(Television* television){
+        pTelevison = television;
+    }
+
+public:
+    void OnofOff(){
+        pTelevison->OnofOff();
+    }
+
+    void VolumeUp(){
+        pTelevison->VolumeUp();
+    }
+
+    void Volumedown(){
+        pTelevison->Volumedown();
+    }
+
+    void ChannelUp(){
+        pTelevison->ChannelUp();
+    }
+
+    void Channeldown(){
+        pTelevison->Channeldown();
+    }
+
+    //显示电视当前信息
+	void ShowTeleState(){
+		pTelevison->ShowTeleState();
+	}
+
+    //直接设定频道
+    void SetChannel(int channel){
+        if (channel < Television::minChannel || channel > Television::maxChannel)
+        {
+            return;
+        }
+        pTelevison->mChannel = channel;
+    }
+
+private:
+    Television *pTelevison;
+};
+
+
 
 //电视机按钮测试
 void test01(){
@@ -103,11 +155,32 @@ void test01(){
     television.OnofOff();
 }
 
+//通过遥控操作电视
+void test02(){
+	//创建电视
+	Television television;
+	//创建遥控
+	Remote remote(&television);
+	remote.OnofOff();
+	remote.ChannelUp();//频道+1
+	remote.ChannelUp();//频道+1
+	remote.ChannelUp();//频道+1
+	remote.VolumeUp();//音量+1
+	remote.VolumeUp();//音量+1
+	remote.VolumeUp();//音量+1
+	remote.VolumeUp();//音量+1
+    remote.SetChannel(123);
+    remote.ShowTeleState();
+}
+
+
+
 
 
 int main()
 {
-    test01();
+    // test01();
+    test02();
     system("pause");
     return EXIT_SUCCESS;
 }
