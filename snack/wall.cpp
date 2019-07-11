@@ -36,7 +36,7 @@ void Wall::drwaWall()
 		}
 		if (i == 6)
 		{
-			cout << " Create by zt, 2016-09-10" << " ";
+			cout << " Create by zt, 2019-07-10" << " ";
 		}
 		if (i == 7)
 		{
