@@ -1,6 +1,6 @@
 #include "snack.h"
 
-Snake::Snake(Wall &tempWall) : wall(tempWall)
+Snake::Snake(Wall &tempWall,Food &tmpfood) : wall(tempWall),food(tmpfood)
 {
     pHead = NULL;
 }
@@ -52,7 +52,7 @@ void Snake::delPoint()
     Point *pCur = pHead->next;
     Point *pPre = pHead;
 
-    while (pCur->next !=NULL)
+    while (pCur->next != NULL)
     {
         pPre = pPre->next;
         pCur = pCur->next;
@@ -64,4 +64,53 @@ void Snake::delPoint()
 
     pCur = NULL;
     pPre->next = NULL;
+}
+
+bool Snake::move(char key)
+{
+    int x = pHead->x;
+    int y = pHead->y;
+    switch (key)
+    {
+        case UP:
+            x--;
+            break;
+        case DOWN:
+            x++;
+            break;
+        case LEFT:
+            y--;
+            break;
+        case RIGHT:
+            y++;
+            break;
+
+    default:
+        break;
+    }
+
+
+    //判断用户到达位置是否成功
+    if (wall.getWall(x,y)=='*'||wall.getWall(x,y)=='=')
+    {
+        cout << "GAME OVER" << endl;
+        return false;
+    }
+
+    //移动成功，分两种
+    //1 吃到食物
+    if(wall.getWall(x,y)=='#')
+    {
+        addPoint(x, y);
+
+        //重新设置食物
+        food.setFood();
+    }
+    else           // 2 未吃到食物
+    {
+        addPoint(x, y);
+        delPoint();
+    }
+    return true;
+
 }

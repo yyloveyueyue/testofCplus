@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include "wall.h"
+#include "food.h"
 using namespace std;
 
 
@@ -17,7 +18,9 @@ public:
         Point *next;
     };
 
-    Snake(Wall &tmpWall);
+    Snake(Wall &tmpWall, Food &tmpfood);
+
+    enum  {UP='w',DOWN='s',LEFT='a',RIGHT='d'};
     //初始化
     void initSnake();
     
@@ -30,6 +33,9 @@ public:
     //删除节点
     void delPoint();
 
+    //移动操作
+    // 返回值代表是否成功移动
+    bool move(char key);
 
     //移动蛇操作
     
@@ -37,5 +43,5 @@ public:
 public:
     Point *pHead;
     Wall &wall;
-
+    Food &food;
 };
